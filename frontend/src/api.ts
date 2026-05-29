@@ -54,29 +54,6 @@ export function downloadUrl(url: string, format_id: string): string {
   return `/api/download?${u.toString()}`;
 }
 
-export async function fetchSubtitles(url: string, lang = "zh-Hans") {
-  const { data } = await api.get<{ lang: string; format: string; content: string }>("/subtitles", {
-    params: { url, lang },
-  });
-  return data;
-}
-
-export async function summarize(url: string, lang = "zh-Hans") {
-  const { data } = await api.post<{ title: string; summary: string; tokens_used: number }>(
-    "/ai/summarize",
-    { url, lang },
-  );
-  return data;
-}
-
-export async function translate(srt: string, target_lang = "zh-Hans") {
-  const { data } = await api.post<{ target_lang: string; srt: string; tokens_used: number }>(
-    "/ai/translate",
-    { srt, target_lang },
-  );
-  return data;
-}
-
 export function readableError(e: unknown): string {
   if (e instanceof AxiosError) {
     const d = e.response?.data as { detail?: string } | undefined;
